@@ -30,6 +30,15 @@
     <script src="js/othr-js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 
+<?php
+// Check if both username and password are submitted
+$error = 0;
+if (!empty($_POST['username']) and !empty($_POST['password'])) {
+    if (isset($_POST['login'])) {
+        include "php/loginValidation.php";
+    }
+} ?>
+
 <body>
     <!--[if lt IE 8]>
         <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -76,7 +85,7 @@
                         <div class="col-md-2 col-sm-4 col-xs-3">  
                             <ul class="menu-extra">
                                 <li class="search search__open hidden-xs"><span class="ti-search"></span></li>
-                                <li><a href="login-register.html"><span class="ti-user"></span></a></li>
+                                <li><a href="login-register.php"><span class="ti-user"></span></a></li>
                                 <li class="cart__menu"><span class="ti-shopping-cart"></span></li>
                                 <li class="toggle__menu hidden-xs hidden-sm"><span class="ti-menu"></span></li>
                             </ul>
@@ -108,17 +117,29 @@
                         <div class="htc__login__register__wrap">
                             <!-- Start Single Content -->
                             <div id="login" role="tabpanel" class="single__tabs__panel tab-pane fade in active">
-                                <form class="login" method="post">
-                                    <input type="text" placeholder="User Name*">
-                                    <input type="password" placeholder="Password*">
+                                <form class="login" method="post" action="" id="loginForm">
+                                    <span class="forget" id="error">
+                                        <?php
+                                        if (!empty($_POST) and empty($_POST['username'])) {
+                                            echo "Username Required!";
+                                        } else if (!empty($_POST) and empty($_POST['password'])) {
+                                            echo "Password Required!";
+                                        } else if ($error == 1) {
+                                            echo "Wrong Username or Password!";
+                                        }
+                                        ?>
+                                    </span>
+                                    <input type="text" placeholder="User Name*" name="username"
+                                           value= <?php echo $_POST['username']; ?>>
+                                    <input type="password" placeholder="Password*" name="password">
                                 </form>
                                 <div class="tabs__checkbox">
                                     <input type="checkbox">
                                     <span> Remember me</span>
-                                    <span class="forget"><a href="#">Forget Pasword?</a></span>
+                                    <span class="forget"><a href="#">Forgot Password?</a></span>
                                 </div>
                                 <div class="htc__login__btn mt--30">
-                                    <a href="#">Login</a>
+                                    <input type="submit" name="login" value="Login" form="loginForm">
                                 </div>
                                 <div class="htc__social__connect">
                                     <h2>Or Login With</h2>
