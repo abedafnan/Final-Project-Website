@@ -60,7 +60,7 @@ if (!isset($_COOKIE['lastVisited'])) {
                         <div class="top_nav_right">
                             <ul class="top_nav_menu">
 
-                                <!-- Currency / Language / My Account -->
+                                <!-- Categories / Products / My Account -->
 
                                 <li class="currency">
                                     <a href="#" style="text-transform: capitalize">
@@ -79,9 +79,9 @@ if (!isset($_COOKIE['lastVisited'])) {
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="language_selection">
-                                        <li><a href="#">Add</a></li>
-                                        <li><a href="#">Update</a></li>
-                                        <li><a href="#">Delete</a></li>
+                                        <li><a href="products/addProduct.php">Add</a></li>
+                                        <li><a href="products/updateProduct.php">Update</a></li>
+                                        <li><a href="products/deleteProduct.php">Delete</a></li>
                                     </ul>
                                 </li>
                                 <li class="account">
@@ -151,8 +151,8 @@ if (!isset($_COOKIE['lastVisited'])) {
                     </a>
                     <ul class="menu_selection">
                         <li><a href="categories/addCategory.php">Add Category</a></li>
-                        <li><a href="#">Update Category</a></li>
-                        <li><a href="#">Delete Category</a></li>
+                        <li><a href="categories/updateCategory.php">Update Category</a></li>
+                        <li><a href="categories/deleteCategory.php">Delete Category</a></li>
                     </ul>
                 </li>
                 <li class="menu_item has-children">
@@ -161,9 +161,9 @@ if (!isset($_COOKIE['lastVisited'])) {
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
-                        <li><a href="#">Add Product</a></li>
-                        <li><a href="#">Update Product</a></li>
-                        <li><a href="#">Delete Product</a></li>
+                        <li><a href="products/addProduct.php">Add Product</a></li>
+                        <li><a href="products/updateProduct.php">Update Product</a></li>
+                        <li><a href="products/deleteProduct.php">Delete Product</a></li>
                     </ul>
                 </li>
                 <li class="menu_item has-children">
@@ -667,51 +667,6 @@ if (!isset($_COOKIE['lastVisited'])) {
                         </div>
                         <div class="product_slider_nav_right product_slider_nav d-flex align-items-center justify-content-center flex-column">
                             <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Benefit -->
-
-    <div class="benefit">
-        <div class="container">
-            <div class="row benefit_row">
-                <div class="col-lg-3 benefit_col">
-                    <div class="benefit_item d-flex flex-row align-items-center">
-                        <div class="benefit_icon"><i class="fa fa-truck" aria-hidden="true"></i></div>
-                        <div class="benefit_content">
-                            <h6>free shipping</h6>
-                            <p>Suffered Alteration in Some Form</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 benefit_col">
-                    <div class="benefit_item d-flex flex-row align-items-center">
-                        <div class="benefit_icon"><i class="fa fa-money" aria-hidden="true"></i></div>
-                        <div class="benefit_content">
-                            <h6>cach on delivery</h6>
-                            <p>The Internet Tend To Repeat</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 benefit_col">
-                    <div class="benefit_item d-flex flex-row align-items-center">
-                        <div class="benefit_icon"><i class="fa fa-undo" aria-hidden="true"></i></div>
-                        <div class="benefit_content">
-                            <h6>45 days return</h6>
-                            <p>Making it Look Like Readable</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 benefit_col">
-                    <div class="benefit_item d-flex flex-row align-items-center">
-                        <div class="benefit_icon"><i class="fa fa-clock-o" aria-hidden="true"></i></div>
-                        <div class="benefit_content">
-                            <h6>opening all week</h6>
-                            <p>8AM - 09PM</p>
                         </div>
                     </div>
                 </div>

@@ -8,7 +8,7 @@
 ?>
 <html>
 <head>
-    <title>Update Category</title>
+    <title>Update Product</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="../cp_style.css">
@@ -16,11 +16,11 @@
 </head>
 <body>
 
-<?php include "header.php" ?>
+<?php include "header.php"?>
 
 <div class="row" style="margin-top: 160px">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-        <h2>Delete Category</h2>
+        <h2>Delete Product</h2>
     </div>
 </div>
 <form class="form-inline" action="" style="margin-top: 30px">
