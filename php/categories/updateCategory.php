@@ -20,7 +20,46 @@
 </head>
 <body>
 
-<?php include "header.php" ?>
+<?php
+include "header.php";
+include "../DBConnection.php";
+$name = null;
+$path = null;
+$desc = null;
+$disabled = 1;
+
+if (isset($_GET['search'])) {
+    $query = $mysqli->prepare("SELECT * FROM categories WHERE id = ?");
+    $query->bind_param("i", $_GET['id']);
+    $query->execute();
+
+    $result = $query->get_result();
+    if ($row = $result->fetch_assoc()) {
+        // store the id in session to use it in the update statement
+        $_SESSION['id'] = $_GET['id'];
+        // store queried values in variables to show in input fields
+        $name = $row['name'];
+        $desc = $row['description'];
+        $path = $row['path'];
+        // Change the disabled state to enable editing fields
+        $disabled = 0;
+
+    } else { ?>
+        // Show alert if the id searched for doesn't exist
+        <script type="text/javascript"> alert("ID Doesn't Exist!"); </script>
+
+    <?php }
+} if (isset($_POST['submit'])) {
+    $query = $mysqli->prepare("UPDATE categories SET name = ?, description = ?, path = ? WHERE id = ?");
+    $query->bind_param("sssi", $_POST['name'], $_POST['desc'], $_POST['path'], $_SESSION['id']);
+    $result = $query->execute();
+
+    if ($result === false) {
+        die("Couldn't Update Category.. " . $mysqli->error);
+    } else { ?>
+        <script type="text/javascript"> alert('Category was updated successfully'); </script>
+    <?php }
+} ?>
 
 <div class="container" style="margin-top: 160px">
     <div class="row">
@@ -30,34 +69,54 @@
     </div>
     <!--Search Section Start-->
     <div class="container">
-        <form class="form-inline" action="" style="margin-top: 30px">
+        <form class="form-inline" action="#" method="GET" role="form" style="margin-top: 30px">
             <label for="searchId" class="mb-2 mr-sm-2" style="margin-left: auto">Category ID:</label>
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchId" placeholder="Enter Search ID.."
                    name="id" style="width: 300px">
-            <button type="submit" class="btn btn-primary mb-2 search_button">Search</button>
+            <button type="submit" name="search" class="btn btn-primary mb-2 search_button">Search</button>
         </form>
     </div>
     <!--Search Section Start-->
     <div class="row">
         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 col-xs-offset-3">
             <form id="contact-form" class="form" action="#" method="POST" role="form">
+
                 <div class="form-group">
                     <label class="form-label" for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="category name"
-                           tabindex="1" required disabled>
+                    <?php if ($disabled) { ?>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="category name"
+                               tabindex="1" required disabled>
+                    <?php } else { ?>
+                        <input type="text" class="form-control" id="name" name="name" placeholder="category name"
+                               tabindex="1" required value="<? echo $name ?>">
+                    <?php } ?>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label" for="path">Image Path</label>
-                    <input type="text" class="form-control" id="path" name="img_path" placeholder="category image path"
-                           tabindex="2" required disabled>
+                    <?php if ($disabled) { ?>
+                        <input type="text" class="form-control" id="path" name="path" placeholder="category image path"
+                               tabindex="2" required disabled>
+                    <?php } else { ?>
+                        <input type="text" class="form-control" id="path" name="path" placeholder="category image path"
+                               tabindex="2" required value="<? echo $path ?>">
+                    <?php } ?>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label" for="desc">Description</label>
-                    <textarea rows="5" cols="50" name="catg_desc" class="form-control" id="desc"
-                              placeholder="Category Description..." tabindex="4" required disabled></textarea>
+                    <?php if ($disabled) { ?>
+                        <textarea rows="5" cols="50" name="desc" class="form-control" id="desc"
+                                  placeholder="Category Description..." tabindex="4" required disabled></textarea>
+                    <?php } else { ?>
+                        <textarea rows="5" cols="50" name="desc" class="form-control" id="desc"
+                                  placeholder="Category Description..." tabindex="4"
+                                  required><? echo $desc ?></textarea>
+                    <?php } ?>
                 </div>
+
                 <div class="text-center">
-                    <button type="submit" class="btn btn-start-order">Update Category</button>
+                    <button type="submit" name="submit" class="btn btn-start-order">Update Category</button>
                 </div>
             </form>
         </div>

@@ -7,7 +7,7 @@
  */
 
 // Establishing connection to the database
-$con = mysqli_connect("localhost", "root", "root", "shopping_system");
-if (!$con) {
+$mysqli = new mysqli("localhost", "root", "root", "shopping_system");
+if (!$mysqli) {
     die("Connection Error! " . mysqli_connect_error());
 }

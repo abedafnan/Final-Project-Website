@@ -11,9 +11,12 @@ session_start();
 require "DBConnection.php";
 
 // Query the user from the database
-$query = "SELECT * FROM users WHERE username = '". $_POST['username'] ."'";
-$result = mysqli_query($con, $query);
-$row = mysqli_fetch_assoc($result);
+$query = $mysqli->prepare("SELECT * FROM users WHERE username = ?");
+$query->bind_param("s", $_POST['username']);
+$query->execute();
+// Get the query result
+$result = $query->get_result();
+$row = $result->fetch_assoc();
 
 // Check if the username and password are correct
 if ((strcmp($row['username'], $_POST['username']) == 0) and (strcmp($row['password'], $_POST['password']) == 0)) {

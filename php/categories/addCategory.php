@@ -33,17 +33,17 @@
                            tabindex="1" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="path">Image Path</label>
-                    <input type="text" class="form-control" id="path" name="img_path" placeholder="category image path"
+                    <label class="form-label" for="img_path">Image Path</label>
+                    <input type="text" class="form-control" id="img_path" name="path" placeholder="category image path"
                            tabindex="2" required>
                 </div>
                 <div class="form-group">
-                    <label class="form-label" for="desc">Description</label>
-                    <textarea rows="5" cols="50" name="catg_desc" class="form-control" id="desc"
+                    <label class="form-label" for="catg_desc">Description</label>
+                    <textarea rows="5" cols="50" name="desc" class="form-control" id="catg_desc"
                               placeholder="Category Description..." tabindex="4" required></textarea>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-start-order">ADD CATEGORY</button>
+                    <button type="submit" name="submit" class="btn btn-start-order">ADD CATEGORY</button>
                 </div>
             </form>
         </div>
@@ -51,6 +51,22 @@
 </div>
 </body>
 </html>
+
+<?php
+include "../DBConnection.php";
+extract($_POST);
+
+if (isset($_POST['submit'])) {
+    $query = $mysqli->prepare("INSERT INTO categories(name, description, path) VALUES (?,?,?)");
+    $query->bind_param("sss", $name, $desc, $path);
+    $result = $query->execute();
+
+    if ($result === false) {
+        die("Couldn't Insert Category.. " . $mysqli->error);
+    } else { ?>
+        <script type="text/javascript"> alert('New category was inserted successfully'); </script>
+    <?php }
+} ?>
 
 <script>
     $(document).ready(function() {
