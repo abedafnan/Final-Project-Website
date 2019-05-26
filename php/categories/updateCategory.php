@@ -72,7 +72,7 @@ if (isset($_GET['search'])) {
         <form class="form-inline" action="#" method="GET" role="form" style="margin-top: 30px">
             <label for="searchId" class="mb-2 mr-sm-2" style="margin-left: auto">Category ID:</label>
             <input type="text" class="form-control mb-2 mr-sm-2" id="searchId" placeholder="Enter Search ID.."
-                   name="id" style="width: 300px">
+                   name="id" style="width: 300px" required>
             <button type="submit" name="search" class="btn btn-primary mb-2 search_button">Search</button>
         </form>
     </div>

@@ -67,15 +67,16 @@ $result = $query->get_result();
 </body>
 
 <?php
-include "../DBConnection.php";
 
 if (isset($_POST['submit'])) {
+    // Loop on the submitted elements and delete them
     for (reset($_POST); $k = key($_POST); next($_POST)) {
         echo $_POST[$k];
         $query = $mysqli->prepare("DELETE FROM categories WHERE id = ?");
         $query->bind_param("i", $_POST[$k]);
         $result = $query->execute();
     }
+
     if ($result === false) {
         die("Couldn't Delete Category.. " . $mysqli->error);
     } else { ?>

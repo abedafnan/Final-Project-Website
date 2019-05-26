@@ -5,6 +5,11 @@
  * Date: 5/23/2019
  * Time: 3:51 PM
  */
+
+session_start();
+if(!isset($_SESSION['logged_in'])) {
+    header("location:../login-register.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,22 +28,6 @@
     <link rel="stylesheet" type="text/css" href="../styles/responsive.css">
 </head>
 
-<?php session_start();
-
-//$year = 31536000 + time();
-//if (!isset($_COOKIE['lastVisited'])) {
-//    //this adds one year to the current time, for the cookie expiration
-//    setcookie('lastVisited', time());
-//} else {
-//    $last = $_COOKIE['lastVisited'];
-//    setcookie('lastVisited', time());
-//}
-
-$last = $_SESSION['lastVisited'];
-$_SESSION['lastVisited'] = time();
-
-?>
-
 <body style="margin: 0 0 72px 0;">
 
 <div class="super_container">
@@ -53,12 +42,25 @@ $_SESSION['lastVisited'] = time();
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="top_nav_left">Welcome <?php echo $_SESSION['username']; ?>, You Last Visited
-                            in <?php
-                            $datetimeFormat = 'Y-m-d H:i:s';
-                            $date = new \DateTime('now', new \DateTimeZone('Asia/Gaza'));
-                            $date->setTimestamp($last);
-                            echo $date->format($datetimeFormat);
+                        <div class="top_nav_left">Welcome <?php echo $_SESSION['username']; ?>,
+                            <?php
+                            $year = 31536000 + time();
+                            // If the cookie isn't set, set it with the current time
+                            if (!isset($_COOKIE['lastVisit'])) {
+                                //this adds one year to the current time, for the cookie expiration
+                                setcookie('lastVisit', time(), $year);
+                                echo "This is your first visit!";
+
+                            } else {
+                                // If it is set, retrieve the time of the last visit
+                                $last = $_COOKIE['lastVisit'];
+
+                                // Format the retrieved time and view it in the main page
+                                $datetimeFormat = 'Y-m-d H:i:s';
+                                $date = new \DateTime('now', new \DateTimeZone('Asia/Gaza'));
+                                $date->setTimestamp($last);
+                                echo "You last visited in " . $date->format($datetimeFormat);
+                            }
                             ?> </div>
                     </div>
                     <div class="col-md-6 text-right">
@@ -73,6 +75,7 @@ $_SESSION['lastVisited'] = time();
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="currency_selection">
+                                        <li><a href="categories/viewCategories.php" style="text-transform: capitalize">View</a></li>
                                         <li><a href="categories/addCategory.php" style="text-transform: capitalize">Add</a></li>
                                         <li><a href="categories/updateCategory.php" style="text-transform: capitalize">Update</a></li>
                                         <li><a href="categories/deleteCategory.php" style="text-transform: capitalize">Delete</a></li>
@@ -84,6 +87,7 @@ $_SESSION['lastVisited'] = time();
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="language_selection">
+                                        <li><a href="products/viewProducts.php">View</a></li>
                                         <li><a href="products/addProduct.php">Add</a></li>
                                         <li><a href="products/updateProduct.php">Update</a></li>
                                         <li><a href="products/deleteProduct.php">Delete</a></li>
@@ -95,7 +99,13 @@ $_SESSION['lastVisited'] = time();
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="account_selection">
-                                        <li><a href="../login-register.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a></li>
+                                        <li>
+                                            <form method="get" action="#">
+                                                <button type="submit" name="logout">
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -104,6 +114,15 @@ $_SESSION['lastVisited'] = time();
                 </div>
             </div>
         </div>
+
+        <?php
+        if (isset($_GET['logout'])) {
+            // set the current time for the lastVisit cookie
+            setcookie('lastVisit', time(), $year);
+            session_destroy();
+            header("location:../login-register.php");
+        }
+        ?>
 
         <!-- Main Navigation -->
 
@@ -155,6 +174,7 @@ $_SESSION['lastVisited'] = time();
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
+                        <li><a href="categories/viewCategories.php">View Categories</a></li>
                         <li><a href="categories/addCategory.php">Add Category</a></li>
                         <li><a href="categories/updateCategory.php">Update Category</a></li>
                         <li><a href="categories/deleteCategory.php">Delete Category</a></li>
@@ -166,6 +186,7 @@ $_SESSION['lastVisited'] = time();
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
+                        <li><a href="products/viewProducts.php">View Products</a></li>
                         <li><a href="products/addProduct.php">Add Product</a></li>
                         <li><a href="products/updateProduct.php">Update Product</a></li>
                         <li><a href="products/deleteProduct.php">Delete Product</a></li>
@@ -177,7 +198,8 @@ $_SESSION['lastVisited'] = time();
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
-                        <li><a href="../login-register.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a></li>
+                        <li><a href="../login-register.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign
+                                Out</a></li>
                     </ul>
                 </li>
                 <li class="menu_item"><a href="#">home</a></li>
@@ -206,36 +228,6 @@ $_SESSION['lastVisited'] = time();
         </div>
     </div>
 
-    <!-- Banner -->
-
-    <div class="banner">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="banner_item align-items-center" style="background-image:url(../images/banner_1.jpg)">
-                        <div class="banner_category">
-                            <a href="../categories.html">women's</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="banner_item align-items-center" style="background-image:url(../images/banner_2.jpg)">
-                        <div class="banner_category">
-                            <a href="../categories.html">accessories's</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="banner_item align-items-center" style="background-image:url(../images/banner_3.jpg)">
-                        <div class="banner_category">
-                            <a href="../categories.html">men's</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!-- New Arrivals -->
 
     <div class="new_arrivals">
@@ -243,7 +235,7 @@ $_SESSION['lastVisited'] = time();
             <div class="row">
                 <div class="col text-center">
                     <div class="section_title new_arrivals_title">
-                        <h2>New Arrivals</h2>
+                        <h2>Our Products</h2>
                     </div>
                 </div>
             </div>
@@ -254,15 +246,21 @@ $_SESSION['lastVisited'] = time();
                             <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked"
                                 data-filter="*">all
                             </li>
-                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-                                data-filter=".women">women's
-                            </li>
-                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-                                data-filter=".accessories">accessories
-                            </li>
-                            <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
-                                data-filter=".men">men's
-                            </li>
+
+                            <?php include "DBConnection.php";
+
+                            // Query all categories' name from the database
+                            $query = $mysqli->prepare("SELECT name FROM categories");
+                            $query->execute();
+                            $result = $query->get_result();
+
+                            while ($row = $result->fetch_assoc()) {
+                                ?>
+                                <!--Use the fetched category name as a filter for filtering products-->
+                                <li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center"
+                                    data-filter=".<?php echo $row['name'] ?>"><?php echo $row['name'] ?>
+                                </li>
+                            <? } ?>
                         </ul>
                     </div>
                 </div>
@@ -272,186 +270,52 @@ $_SESSION['lastVisited'] = time();
                     <div class="product-grid"
                          data-isotope='{ "itemSelector": ".product-item", "layoutMode": "fitRows" }'>
 
-                        <!-- Product 1 -->
+                        <?php
+                        // Query all products' info from the database to view them in the main page
+                        $query1 = $mysqli->prepare("SELECT * FROM products");
+                        $query1->execute();
+                        $result1 = $query1->get_result();
 
-                        <div class="product-item men">
+                        while ($row1 = $result1->fetch_assoc()) {
+
+                            // Query all categories' id/name from the database
+                            $query2 = $mysqli->prepare("SELECT id, name FROM categories");
+                            $query2->execute();
+                            $result2 = $query2->get_result();
+                            while ($row2 = $result2->fetch_assoc()) {
+                                // check if the catg_id is the same as the id queried from the categories table
+                                if ($row1['catg_id'] == $row2['id']) {
+                                    ?>
+                                    <!--put the category name as a filter for the product-->
+                                    <div class="product-item <?php echo $row2['name'] ?>">
+                                    <? }
+                            } ?>
                             <div class="product discount product_filter">
                                 <div class="product_image">
-                                    <img src="../images/product_1.png" alt="">
+                                    <img src="<?php echo $row1['img'] ?>" alt="product is here">
                                 </div>
                                 <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-                                    <span>-$20</span></div>
                                 <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Fujifilm X100T 16 MP Digital
-                                            Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
+                                    <h6 class="product_name"><a href="#"><?php echo $row1['name'] ?></a>
+                                    </h6>
+                                    <div class="product_price">$
+                                        <?php
+                                        if ($row1['type'] == 'discount') {
+                                            $disc_price = $row1['price'] - ($row1['price'] * ($row1['discount'] / 100));
+                                            echo $disc_price;
+                                            echo "<span>$" . $row1['price'] . "</span>";
+                                        } else {
+                                            echo $row1['price'];
+                                        }
+                                        ?>
+                                    </div>
                                 </div>
                             </div>
                             <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 2 -->
-
-                        <div class="product-item women">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_2.png" alt="">
-                                </div>
-                                <div class="favorite"></div>
-                                <div class="product_bubble product_bubble_left product_bubble_green d-flex flex-column align-items-center">
-                                    <span>new</span></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Samsung CF591 Series Curved
-                                            27-Inch FHD Monitor</a></h6>
-                                    <div class="product_price">$610.00</div>
-                                </div>
                             </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 3 -->
-
-                        <div class="product-item women">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_3.png" alt="">
-                                </div>
-                                <div class="favorite"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Blue Yeti USB Microphone Blackout
-                                            Edition</a></h6>
-                                    <div class="product_price">$120.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 4 -->
-
-                        <div class="product-item accessories">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_4.png" alt="">
-                                </div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-                                    <span>sale</span></div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">DYMO LabelWriter 450 Turbo Thermal
-                                            Label Printer</a></h6>
-                                    <div class="product_price">$410.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 5 -->
-
-                        <div class="product-item women men">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_5.png" alt="">
-                                </div>
-                                <div class="favorite"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Pryma Headphones, Rose Gold &
-                                            Grey</a></h6>
-                                    <div class="product_price">$180.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 6 -->
-
-                        <div class="product-item accessories">
-                            <div class="product discount product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_6.png" alt="">
-                                </div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-                                    <span>-$20</span></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Fujifilm X100T 16 MP Digital
-                                            Camera (Silver)</a></h6>
-                                    <div class="product_price">$520.00<span>$590.00</span></div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 7 -->
-
-                        <div class="product-item women">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_7.png" alt="">
-                                </div>
-                                <div class="favorite"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Samsung CF591 Series Curved
-                                            27-Inch FHD Monitor</a></h6>
-                                    <div class="product_price">$610.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 8 -->
-
-                        <div class="product-item accessories">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_8.png" alt="">
-                                </div>
-                                <div class="favorite"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Blue Yeti USB Microphone Blackout
-                                            Edition</a></h6>
-                                    <div class="product_price">$120.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 9 -->
-
-                        <div class="product-item men">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_9.png" alt="">
-                                </div>
-                                <div class="product_bubble product_bubble_right product_bubble_red d-flex flex-column align-items-center">
-                                    <span>sale</span></div>
-                                <div class="favorite favorite_left"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">DYMO LabelWriter 450 Turbo Thermal
-                                            Label Printer</a></h6>
-                                    <div class="product_price">$410.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-
-                        <!-- Product 10 -->
-
-                        <div class="product-item men">
-                            <div class="product product_filter">
-                                <div class="product_image">
-                                    <img src="../images/product_10.png" alt="">
-                                </div>
-                                <div class="favorite"></div>
-                                <div class="product_info">
-                                    <h6 class="product_name"><a href="../single.html">Pryma Headphones, Rose Gold &
-                                            Grey</a></h6>
-                                    <div class="product_price">$180.00</div>
-                                </div>
-                            </div>
-                            <div class="red_button add_to_cart_button"><a href="#">add to cart</a></div>
-                        </div>
-                    </div>
+                            <?php
+                        }
+                        ?>
                 </div>
             </div>
         </div>

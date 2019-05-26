@@ -51,6 +51,7 @@
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="currency_selection">
+                                        <li><a href="viewCategories.php" style="text-transform: capitalize">View</a></li>
                                         <li><a href="addCategory.php" style="text-transform: capitalize">Add</a></li>
                                         <li><a href="updateCategory.php" style="text-transform: capitalize">Update</a></li>
                                         <li><a href="deleteCategory.php" style="text-transform: capitalize">Delete</a></li>
@@ -62,6 +63,7 @@
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="language_selection">
+                                        <li><a href="../products/viewProducts.php">View</a></li>
                                         <li><a href="../products/addProduct.php">Add</a></li>
                                         <li><a href="../products/updateProduct.php">Update</a></li>
                                         <li><a href="../products/deleteProduct.php">Delete</a></li>
@@ -133,6 +135,7 @@
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
+                        <li><a href="viewCategories.php" style="text-transform: capitalize">View</a></li>
                         <li><a href="addCategory.php">Add Category</a></li>
                         <li><a href="updateCategory.php">Update Category</a></li>
                         <li><a href="deleteCategory.php">Delete Category</a></li>
@@ -144,6 +147,7 @@
                         <i class="fa fa-angle-down"></i>
                     </a>
                     <ul class="menu_selection">
+                        <li><a href="../products/viewProducts.php">View Product</a></li>
                         <li><a href="../products/addProduct.php">Add Product</a></li>
                         <li><a href="../products/updateProduct.php">Update Product</a></li>
                         <li><a href="../products/deleteProduct.php">Delete Product</a></li>

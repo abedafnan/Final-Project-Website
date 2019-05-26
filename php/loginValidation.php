@@ -6,8 +6,6 @@
  * Time: 11:53 PM
  */
 
-session_start();
-
 require "DBConnection.php";
 
 // Query the user from the database
@@ -21,6 +19,7 @@ $row = $result->fetch_assoc();
 // Check if the username and password are correct
 if ((strcmp($row['username'], $_POST['username']) == 0) and (strcmp($row['password'], $_POST['password']) == 0)) {
     $_SESSION['username'] = $_POST['username'];
+    $_SESSION['logged_in'] = true;
 
     // Check if the user is an admin
     if ($row['isAdmin'] == 'admin') {
@@ -30,8 +29,8 @@ if ((strcmp($row['username'], $_POST['username']) == 0) and (strcmp($row['passwo
     }
 
 } else {
+    // used to view the error message in login-register.php
     $error = 1;
-    session_destroy();
 }
 
 ?>
