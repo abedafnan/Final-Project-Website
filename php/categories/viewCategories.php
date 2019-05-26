@@ -10,7 +10,6 @@ session_start();
 require_once("../check_logged_in.php");
 check_logged_in();
 ?>
-?>
 <html>
 <head>
     <title>View Category</title>

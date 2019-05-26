@@ -40,7 +40,7 @@ if (isset($_GET['search'])) {
     $result = $query->get_result();
     if ($row = $result->fetch_assoc()) {
         // store the id in session to use it in the update statement
-        $_SESSION['id'] = $_GET['id'];
+        $_SESSION['catg_id'] = $_GET['id'];
         // store queried values in variables to show in input fields
         $name = $row['name'];
         $desc = $row['description'];
@@ -55,7 +55,7 @@ if (isset($_GET['search'])) {
     <?php }
 } if (isset($_POST['submit'])) {
     $query = $mysqli->prepare("UPDATE categories SET name = ?, description = ?, path = ? WHERE id = ?");
-    $query->bind_param("sssi", $_POST['name'], $_POST['desc'], $_POST['path'], $_SESSION['id']);
+    $query->bind_param("sssi", $_POST['name'], $_POST['desc'], $_POST['path'], $_SESSION['catg_id']);
     $result = $query->execute();
 
     if ($result === false) {
