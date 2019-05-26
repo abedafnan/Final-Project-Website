@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: αlphα
+ * User: Afnan A. Abed
  * Date: 5/26/2019
  * Time: 1:00 AM
  */
@@ -44,8 +44,7 @@ $result = $query->get_result();
     </tr>
     </thead>
     <tbody>
-    <?php
-    while ($row = $result->fetch_assoc()) { ?>
+    <?php while ($row = $result->fetch_assoc()) { ?>
         <tr>
             <th scope="row"><?php echo $row['id'] ?></th>
             <td><?php echo $row['name'] ?></td>
@@ -56,6 +55,7 @@ $result = $query->get_result();
             $query2->execute();
             $result2 = $query2->get_result();
             while ($row2 = $result2->fetch_assoc()) {
+
                 // if the product's catg_id is the same as the fetched one
                 if ($row['catg_id'] == $row2['id']) { ?>
                     <!--view the name of the category-->

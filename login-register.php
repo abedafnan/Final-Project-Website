@@ -58,14 +58,14 @@ if (!empty($_POST['username']) and !empty($_POST['password'])) {
                     <div class="row">
                         <div class="col-md-2 col-lg-2 col-sm-3 col-xs-3">
                             <div class="logo_container">
-                                <a href="index.html">colo<span>shop</span></a>
+                                <a href="index.php">colo<span>shop</span></a>
                             </div>
                         </div>
                         <!-- Start Mainmenu Area -->
                         <div class="col-md-8 col-lg-8 col-sm-6 col-xs-6">
                             <nav class="mainmenu__nav hidden-xs hidden-sm">
                                 <ul class="main__menu">
-                                    <li class="drop"><a href="index.html">Home</a></li>
+                                    <li class="drop"><a href="index.php">Home</a></li>
                                     <li class="drop"><a href="#">portfolio</a></li>
                                     <li class="drop"><a href="#">Blog</a></li>
                                     <li class="drop"><a href="#">Shop</a></li>
@@ -76,7 +76,7 @@ if (!empty($_POST['username']) and !empty($_POST['password'])) {
                             <div class="mobile-menu clearfix visible-xs visible-sm">
                                 <nav id="mobile_dropdown">
                                     <ul>
-                                        <li><a href="index.html">Home</a></li>
+                                        <li><a href="index.php">Home</a></li>
                                         <li><a href="#">portfolio</a></li>
                                         <li><a href="#">blog</a></li>
                                         <li><a href="#">pages</a></li>

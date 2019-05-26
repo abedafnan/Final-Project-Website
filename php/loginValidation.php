@@ -25,7 +25,7 @@ if ((strcmp($row['username'], $_POST['username']) == 0) and (strcmp($row['passwo
     if ($row['isAdmin'] == 'admin') {
         header("location:php/admin_main.php");
     } else {
-        header("location:index.html");
+        header("location:php/user_main.php");
     }
 
 } else {
