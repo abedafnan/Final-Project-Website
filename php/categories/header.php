@@ -75,7 +75,18 @@
                                         <i class="fa fa-angle-down"></i>
                                     </a>
                                     <ul class="account_selection">
-                                        <li><a href="../../login-register.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a></li>
+                                        <li>
+                                            <form method="get" action="#" id="logoutForm">
+                                                <!--Style doesn't work in css file-->
+                                                <button class="logout_button" type="submit" name="logout"
+                                                        style=" background-color: Transparent;
+                                            border: none;
+                                            cursor:pointer;
+                                            overflow: hidden;">
+                                                    <i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </li>
                             </ul>
@@ -84,6 +95,10 @@
                 </div>
             </div>
         </div>
+
+        <?php
+        require_once("../check_logged_in.php");
+        logout(); ?>
 
         <!-- Main Navigation -->
 

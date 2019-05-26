@@ -35,6 +35,12 @@ session_start();
 </head>
 
 <?php
+// Check if the remember me is checked
+if (isset($_POST['remember_me'])) {
+    setcookie("name", $_POST['username']);
+    setcookie("pass", $_POST['password']);
+}
+
 // Check if both username and password are submitted
 $error = 0;
 if (!empty($_POST['username']) and !empty($_POST['password'])) {
@@ -133,12 +139,20 @@ if (!empty($_POST['username']) and !empty($_POST['password'])) {
                                         }
                                         ?>
                                     </span>
+                                    <!--If the login info was remembered, show it in fields-->
                                     <input type="text" placeholder="User Name*" name="username"
-                                           value= <?php echo $_POST['username']; ?>>
-                                    <input type="password" placeholder="Password*" name="password">
+                                           value= <?php
+                                    if (isset($_COOKIE['name'])) {
+                                        echo $_COOKIE['name'];
+                                    } ?>>
+                                    <input type="password" placeholder="Password*" name="password"
+                                           value= <?php
+                                    if (isset($_COOKIE['pass'])) {
+                                        echo $_COOKIE['pass'];
+                                    } ?>>
                                 </form>
                                 <div class="tabs__checkbox">
-                                    <input type="checkbox">
+                                    <input type="checkbox" name="remember_me" form="loginForm">
                                     <span> Remember me</span>
                                     <span class="forget"><a href="#">Forgot Password?</a></span>
                                 </div>

@@ -5,6 +5,10 @@
  * Date: 5/24/2019
  * Time: 12:16 AM
  */
+
+session_start();
+require_once("../check_logged_in.php");
+check_logged_in();
 ?>
 <html>
 <head>

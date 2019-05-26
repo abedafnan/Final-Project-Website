@@ -6,6 +6,10 @@
  * Time: 12:51 AM
  */
 
+session_start();
+require_once("../check_logged_in.php");
+check_logged_in();
+?>
 ?>
 <html>
 <head>
