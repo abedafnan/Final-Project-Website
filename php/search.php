@@ -40,9 +40,10 @@
                     <?php
                     include "DBConnection.php";
 
+                    // Prevent HTML injection
+                    $newText = htmlspecialchars($_GET['search_text']);
                     // Query the product info that's been searched for
-                    $param = "%{$_GET['search_text']}%";
-//                    $param = $_GET['search_text'];
+                    $param = "%{$newText}%";
                     $query = $mysqli->prepare("SELECT * FROM products WHERE name LIKE ?");
                     $query->bind_param("s", $param);
                     $query->execute();

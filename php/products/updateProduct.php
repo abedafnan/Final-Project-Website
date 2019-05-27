@@ -61,8 +61,11 @@ if (isset($_GET['search'])) {
     <?php }
 } if (isset($_POST['submit'])) {
     $query = $mysqli->prepare("UPDATE products SET name = ?, type = ?, price = ?, discount = ?, img = ?, catg_id = ? WHERE id = ?");
-    $query->bind_param("ssddsii", $_POST['name'], $_POST['type'], $_POST['price'],
-        $_POST['discount'], $_POST['img'], $_POST['catg_id'], $_SESSION['product_id']);
+    $newName = htmlspecialchars($_POST['name']);
+    $newType = htmlspecialchars($_POST['type']);
+    $newImg = htmlspecialchars($_POST['img']);
+    $query->bind_param("ssddsii", $newName, $newType, $_POST['price'],
+        $_POST['discount'], $newImg, $_POST['catg_id'], $_SESSION['product_id']);
     $result = $query->execute();
 
     if ($result === false) {

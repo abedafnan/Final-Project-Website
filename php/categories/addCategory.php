@@ -62,7 +62,10 @@ extract($_POST);
 
 if (isset($_POST['submit'])) {
     $query = $mysqli->prepare("INSERT INTO categories(name, description, path) VALUES (?,?,?)");
-    $query->bind_param("sss", $name, $desc, $path);
+    $newName = htmlspecialchars($name);
+    $newDesc = htmlspecialchars($desc);
+    $newPath = htmlspecialchars($path);
+    $query->bind_param("sss", $newName, $newDesc, $newPath);
     $result = $query->execute();
 
     if ($result === false) {

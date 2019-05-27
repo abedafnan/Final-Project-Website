@@ -55,7 +55,10 @@ if (isset($_GET['search'])) {
     <?php }
 } if (isset($_POST['submit'])) {
     $query = $mysqli->prepare("UPDATE categories SET name = ?, description = ?, path = ? WHERE id = ?");
-    $query->bind_param("sssi", $_POST['name'], $_POST['desc'], $_POST['path'], $_SESSION['catg_id']);
+    $newName = htmlspecialchars($_POST['name']);
+    $newDesc = htmlspecialchars($_POST['desc']);
+    $newPath = htmlspecialchars($_POST['path']);
+    $query->bind_param("sssi", $newName, $newDesc, $newPath, $_SESSION['catg_id']);
     $result = $query->execute();
 
     if ($result === false) {

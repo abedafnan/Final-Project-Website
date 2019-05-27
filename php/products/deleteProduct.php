@@ -24,6 +24,22 @@ check_logged_in();
 include "header.php";
 include "../DBConnection.php";
 
+if (isset($_POST['submit'])) {
+    // Loop on the submitted elements and delete them
+    for (reset($_POST); $k = key($_POST); next($_POST)) {
+        echo $_POST[$k];
+        $query = $mysqli->prepare("DELETE FROM products WHERE id = ?");
+        $query->bind_param("i", $_POST[$k]);
+        $result = $query->execute();
+    }
+
+    if ($result === false) {
+        die("Couldn't Delete Product.. " . $mysqli->error);
+    } else { ?>
+        <script type="text/javascript"> alert('Product was deleted successfully'); </script>
+    <?php }
+}
+
 // Query all products' info from the database to put into the table
 $query = $mysqli->prepare("SELECT * FROM products");
 $query->execute();
@@ -76,24 +92,6 @@ $result = $query->get_result();
     <button type="submit" name="submit" class="btn btn-start-order" style="margin-right: auto; margin-left: auto">Delete Product</button>
 </form>
 </body>
-
-<?php
-
-if (isset($_POST['submit'])) {
-    // Loop on the submitted elements and delete them
-    for (reset($_POST); $k = key($_POST); next($_POST)) {
-        echo $_POST[$k];
-        $query = $mysqli->prepare("DELETE FROM products WHERE id = ?");
-        $query->bind_param("i", $_POST[$k]);
-        $result = $query->execute();
-    }
-
-    if ($result === false) {
-        die("Couldn't Delete Product.. " . $mysqli->error);
-    } else { ?>
-        <script type="text/javascript"> alert('Product was deleted successfully'); </script>
-    <?php }
-} ?>
 
 <script src="../../js/jquery-3.2.1.min.js"></script>
 <script src="../../styles/bootstrap4/popper.js"></script>

@@ -100,7 +100,10 @@ extract($_POST);
 
 if (isset($_POST['submit'])) {
     $query = $mysqli->prepare("INSERT INTO products(name, type, price, discount, img, catg_id) VALUES (?,?,?,?,?,?)");
-    $query->bind_param("ssddsi", $name, $type, $price, $discount, $img, $catg_id);
+    $newName = htmlspecialchars($name);
+    $newType = htmlspecialchars($type);
+    $newImg = htmlspecialchars($img);
+    $query->bind_param("ssddsi", $newName,$newType , $price, $discount, $newImg, $catg_id);
     $result = $query->execute();
 
     if ($result === false) {
