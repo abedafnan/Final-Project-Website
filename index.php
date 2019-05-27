@@ -9,10 +9,22 @@
 	<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
 	<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
-	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
-	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
-	<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
-	<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+    <link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+    <link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+    <link rel="stylesheet" type="text/css" href="styles/responsive.css">
+
+    <!-- This core.css file contents all plugings css file. -->
+    <link rel="stylesheet" href="styles/othr-css/css/core.css">
+    <!-- Theme shortcodes/elements style -->
+    <link rel="stylesheet" href="styles/othr-css/css/shortcode/shortcodes.css">
+    <!-- Theme main style -->
+    <link rel="stylesheet" href="styles/othr-css/style.css">
+    <!-- Responsive css -->
+    <link rel="stylesheet" href="styles/othr-css/css/responsive.css">
+    <!-- User style -->
+    <link rel="stylesheet" href="styles/othr-css/css/custom.css">
+
 </head>
 
 <body>
@@ -97,7 +109,9 @@
 								<li><a href="#">contact</a></li>
 							</ul>
 							<ul class="navbar_user">
-								<li><a href="#"><i class="fa fa-search" aria-hidden="true"></i></a></li>
+								<li class="search search__open hidden-xs">
+                                    <a href="#"><i class="fa fa-search" aria-hidden="true"></i></a>
+                                </li>
 							</ul>
 							<div class="hamburger_container">
 								<i class="fa fa-bars" aria-hidden="true"></i>
@@ -110,6 +124,26 @@
 
 	</header>
 
+    <!--Start Search Popup-->
+    <div class="search__area">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search__inner">
+                        <form action="php/search.php" method="get">
+                            <input placeholder="Search here... " type="text" name="search_text" required>
+                            <button type="submit" name="submit"></button>
+                        </form>
+                        <div class="search__close__btn">
+                            <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Menu of Smaller Screens-->
 	<div class="fs_menu_overlay"></div>
 	<div class="hamburger_menu">
 		<div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
@@ -161,7 +195,7 @@
 
 	<!-- Slider -->
 
-	<div class="main_slider" style="background-image:url(images/slider_1.jpg)">
+	<div class="main_slider" style="background-image:url(images/slider_1.jpg); margin-top: 0px;">
 		<div class="container fill_height">
 			<div class="row align-items-center fill_height">
 				<div class="col">
@@ -266,7 +300,7 @@
                                     <div class="product-item <?php echo $row2['name'] ?>">
                                 <? }
                             } ?>
-                            <div class="product discount product_filter">
+                            <div class="product discount product_filter" style="margin-top: 0">
                                 <div class="product_image">
                                     <img src="php/<?php echo $row1['img'] ?>" alt="product is here">
                                 </div>
@@ -351,7 +385,7 @@
 			</div>
 			<div class="row">
 				<div class="col">
-					<div class="product_slider_container">
+					<div class="product_slider_container" style="margin-top: 0">
 						<div class="owl-carousel owl-theme product_slider">
 
 							<!-- Slide 1 -->
@@ -699,10 +733,16 @@
 <script src="js/jquery-3.2.1.min.js"></script>
 <script src="styles/bootstrap4/popper.js"></script>
 <script src="styles/bootstrap4/bootstrap.min.js"></script>
+<script src="js/othr-js/plugins.js"></script>
 <script src="plugins/Isotope/isotope.pkgd.min.js"></script>
 <script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
 <script src="plugins/easing/easing.js"></script>
 <script src="js/custom.js"></script>
+
+<!-- All js plugins included in this file. -->
+<script src="js/othr-js/slick.min.js"></script>
+<!-- Main js file that contents all jQuery plugins activation. -->
+<script src="js/othr-js/main.js"></script>
 </body>
 
 </html>
